@@ -5,7 +5,7 @@ After=network.target
 [Service]
 WorkingDirectory=/opt/taskverse/api
 
-ExecStart=/usr/bin/dotnet /opt/taskverse/api/Taskverse.API.dll
+ExecStart=/usr/bin/dotnet /opt/taskverse/api/Taskverse.Api.dll
 
 Restart=always
 RestartSec=10
