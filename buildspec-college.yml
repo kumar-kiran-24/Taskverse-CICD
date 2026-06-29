@@ -9,15 +9,11 @@ phases:
     commands:
       - echo "Publishing College Service..."
       - dotnet publish API/Taskverse.College.Service/Taskverse.API.College.Service.csproj -c Release -o publish
+      - cp appspec-college.yml appspec.yml
 
 artifacts:
   files:
-    - '**/*'
-  base-directory: publish
-  secondary-artifacts:
-    deployment:
-      files:
-        - appspec.yml
-        - scripts/**/*
-        - taskverse-college.service
-        - publish/**/*
+    - publish/**/*
+    - appspec.yml
+    - taskverse-college.service
+    - scripts/**/*
