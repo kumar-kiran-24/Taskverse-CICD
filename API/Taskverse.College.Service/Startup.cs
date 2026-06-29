@@ -56,10 +56,32 @@ public class Startup
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Taskverse Colleges Service v1");
             });
         }
+        // app.UseHttpsRedirection();
+        // app.MapControllers();
+        // app.UseCors("AllowTaskverse");
+        // app.MapHealthChecks("/health");
+
+
         app.UseHttpsRedirection();
+
         app.MapControllers();
+
         app.UseCors("AllowTaskverse");
+
+        app.MapGet("/api/system", () =>
+        {
+            var assembly = System.Reflection.Assembly.GetEntryAssembly()?.GetName();
+
+            return Results.Ok(new
+            {
+                AssemblyName = assembly?.Name,
+                AssemblyVersion = assembly?.Version?.ToString()
+            });
+        });
+
         app.MapHealthChecks("/health");
+
+
     }
 
     private void ConfigureDatabase(IServiceCollection services)

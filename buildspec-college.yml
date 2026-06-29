@@ -1,0 +1,28 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      dotnet: 10.0
+
+  build:
+    commands:
+      - echo "Publishing College Service..."
+      - dotnet publish API/Taskverse.College.Service/Taskverse.API.College.Service.csproj -c Release -o publish
+
+  post_build:
+    commands:
+      - echo "Preparing deployment bundle..."
+      - mkdir -p deployment/scripts
+      - cp appspec-college.yml deployment/appspec.yml
+      - cp taskverse-college.service deployment/
+      - cp -r publish deployment/
+      - cp scripts/before_install_college.sh deployment/scripts/
+      - cp scripts/after_install_college.sh deployment/scripts/
+      - cp scripts/application_start_college.sh deployment/scripts/
+      - cp scripts/validate_service_college.sh deployment/scripts/
+
+artifacts:
+  base-directory: deployment
+  files:
+    - '**/*'

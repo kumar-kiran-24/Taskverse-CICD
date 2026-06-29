@@ -56,9 +56,28 @@ public class Startup
             });
         }
 
+        // app.UseHttpsRedirection();
+        // app.MapControllers();
+        // app.MapHealthChecks("/health");
         app.UseHttpsRedirection();
+
         app.MapControllers();
+
+        app.MapGet("/api/system", () =>
+        {
+            var assembly = System.Reflection.Assembly.GetEntryAssembly()?.GetName();
+
+            return Results.Ok(new
+            {
+                AssemblyName = assembly?.Name,
+                AssemblyVersion = assembly?.Version?.ToString()
+            });
+        });
+
         app.MapHealthChecks("/health");
+
+
+
     }
 
     private void ConfigureDatabase(IServiceCollection services)

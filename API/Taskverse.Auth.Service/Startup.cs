@@ -66,8 +66,24 @@ public class Startup
         app.UseAuthentication();
         app.UseAuthorization();
 
+        // app.MapControllers();
+        // app.MapHealthChecks("/health");
         app.MapControllers();
+
+        app.MapGet("/api/system", () =>
+        {
+            var assembly = System.Reflection.Assembly.GetEntryAssembly()?.GetName();
+
+            return Results.Ok(new
+            {
+                AssemblyName = assembly?.Name,
+                AssemblyVersion = assembly?.Version?.ToString()
+            });
+        });
+
         app.MapHealthChecks("/health");
+
+        
     }
 
     private void ConfigureAuthentication(IServiceCollection services)

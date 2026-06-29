@@ -421,3 +421,4 @@ FodyWeavers.xsd
 
 #test during the deployment and ignore that file 
 /auth-test
+/college-test
