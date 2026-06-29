@@ -416,3 +416,8 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+
+
+#test during the deployment and ignore that file 
+/auth-test
